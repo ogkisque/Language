@@ -1,0 +1,114 @@
+
+--------------------------------------------------
+TXLib сообщает:
+
+Программа: F:\Other\cproga\calculator\executor.exe,
+
+ВНЕЗАПНО: _matherr(): Математическая ошибка 1 (_DOMAIN): Нарушение области определения в функции sqrt (-23, [0]). Она вернет значение -nan(ind).
+
+С помощью __setusermatherr() вы можете сами обработать эту ошибку.
+
+#1: TXLib [Ver: 00173a, Rev: 172, Date: 2023-09-05 19:24:34 +0400], Instance: 0x00007FF60B3508D0 (64-bit), Flags: CMdRe0, Thread: 0x1BDC (Main), errno: 33 (Domain error). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00007FF60B30223C in F:\Other\cproga\calculator\executor.exe: _txError()
+# 1 0x00007FF60B302D96 in F:\Other\cproga\calculator\executor.exe: _txOnMatherr()
+# 2 0x00007FF60B3241A8 in F:\Other\cproga\calculator\executor.exe: __mingw_raise_matherr()
+# 3 0x00007FF60B324AE3 in F:\Other\cproga\calculator\executor.exe: sqrt()
+# 4 0x00007FF60B31F5C3 in F:\Other\cproga\calculator\executor.exe: execute()
+# 5 0x00007FF60B31E6EB in F:\Other\cproga\calculator\executor.exe: main()
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 172, Date: 2023-09-05 19:24:34 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	TXLib.h
+Compiled:	Dec 15 2023 11:03:05, GNU g++ 13.1.0, std=201703L, MinGW-W64 Runtime 11.0.0 (alpha - rev. 0) 0000-00-00, 64-bit, DEBUG
+Started:	Dec 15 2023 11:09:31
+
+Run file:	F:\Other\cproga\calculator\executor.exe
+Directory:	F:\Other\cproga\calculator
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib сообщает:
+
+Программа: F:\Other\cproga\calculator\executor.exe,
+
+ВНЕЗАПНО: _matherr(): Математическая ошибка 1 (_DOMAIN): Нарушение области определения в функции sqrt (-27, [0]). Она вернет значение -nan(ind).
+
+С помощью __setusermatherr() вы можете сами обработать эту ошибку.
+
+#1: TXLib [Ver: 00173a, Rev: 172, Date: 2023-09-05 19:24:34 +0400], Instance: 0x00007FF60B3508D0 (64-bit), Flags: CMdRe0, Thread: 0x3798 (Main), errno: 33 (Domain error). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00007FF60B30223C in F:\Other\cproga\calculator\executor.exe: _txError()
+# 1 0x00007FF60B302D96 in F:\Other\cproga\calculator\executor.exe: _txOnMatherr()
+# 2 0x00007FF60B3241A8 in F:\Other\cproga\calculator\executor.exe: __mingw_raise_matherr()
+# 3 0x00007FF60B324AE3 in F:\Other\cproga\calculator\executor.exe: sqrt()
+# 4 0x00007FF60B31F5C3 in F:\Other\cproga\calculator\executor.exe: execute()
+# 5 0x00007FF60B31E6EB in F:\Other\cproga\calculator\executor.exe: main()
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 172, Date: 2023-09-05 19:24:34 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	TXLib.h
+Compiled:	Dec 15 2023 11:03:05, GNU g++ 13.1.0, std=201703L, MinGW-W64 Runtime 11.0.0 (alpha - rev. 0) 0000-00-00, 64-bit, DEBUG
+Started:	Dec 15 2023 11:15:06
+
+Run file:	F:\Other\cproga\calculator\executor.exe
+Directory:	F:\Other\cproga\calculator
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib сообщает:
+
+Программа: F:\Other\cproga\calculator\executor.exe,
+
+ВНЕЗАПНО: _matherr(): Математическая ошибка 1 (_DOMAIN): Нарушение области определения в функции sqrt (-27, [0]). Она вернет значение -nan(ind).
+
+С помощью __setusermatherr() вы можете сами обработать эту ошибку.
+
+#1: TXLib [Ver: 00173a, Rev: 172, Date: 2023-09-05 19:24:34 +0400], Instance: 0x00007FF60B3508D0 (64-bit), Flags: CMdRe0, Thread: 0x3880 (Main), errno: 33 (Domain error). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00007FF60B30223C in F:\Other\cproga\calculator\executor.exe: _txError()
+# 1 0x00007FF60B302D96 in F:\Other\cproga\calculator\executor.exe: _txOnMatherr()
+# 2 0x00007FF60B3241A8 in F:\Other\cproga\calculator\executor.exe: __mingw_raise_matherr()
+# 3 0x00007FF60B324AE3 in F:\Other\cproga\calculator\executor.exe: sqrt()
+# 4 0x00007FF60B31F5C3 in F:\Other\cproga\calculator\executor.exe: execute()
+# 5 0x00007FF60B31E6EB in F:\Other\cproga\calculator\executor.exe: main()
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 172, Date: 2023-09-05 19:24:34 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	TXLib.h
+Compiled:	Dec 15 2023 11:03:05, GNU g++ 13.1.0, std=201703L, MinGW-W64 Runtime 11.0.0 (alpha - rev. 0) 0000-00-00, 64-bit, DEBUG
+Started:	Dec 15 2023 11:20:39
+
+Run file:	F:\Other\cproga\calculator\executor.exe
+Directory:	F:\Other\cproga\calculator
+
+--------------------------------------------------

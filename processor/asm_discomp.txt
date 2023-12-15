@@ -1,0 +1,31 @@
+jmp 25
+pop [rcx]
+pop [rbx]
+pop [rax]
+push [rbx]
+div 
+push [rbx]
+div 
+mul 
+push 400
+push [rax]
+push [rcx]
+sub 
+mul 
+mul 
+sub 
+pop [1]
+ret 
+in 
+in 
+in 
+push 100
+pop rax
+push 200
+pop rbx
+push 300
+pop rcx
+call 2
+push [1]
+out 
+hlt 

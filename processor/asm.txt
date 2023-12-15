@@ -1,0 +1,163 @@
+jmp main
+
+:func0
+pop [1]
+pop [0]
+push -1
+push [1]
+mul
+push [0]
+div
+pop [2]
+push [2]
+ret
+
+:func1
+pop [3]
+push 0
+pop [4]
+push [3]
+push 0
+jne if0
+push 555
+pop [4]
+:if0
+push [3]
+push 0
+je if1
+push 666
+pop [4]
+:if1
+push [4]
+ret
+
+:func2
+pop [7]
+pop [6]
+pop [5]
+push [6]
+push [6]
+mul
+push 4
+push [5]
+mul
+push [7]
+mul
+sub
+pop [8]
+push [8]
+ret
+
+:func3
+pop [11]
+pop [10]
+pop [9]
+push -1
+push [10]
+mul
+push [11]
+sqrt
+add
+push 2
+push [9]
+mul
+div
+pop [12]
+push [12]
+ret
+
+:func4
+pop [15]
+pop [14]
+pop [13]
+push -1
+push [14]
+mul
+push [15]
+sqrt
+sub
+push 2
+push [13]
+mul
+div
+pop [16]
+push [16]
+ret
+
+:main
+in
+pop [17]
+in
+pop [18]
+in
+pop [19]
+push 0
+pop [20]
+push 0
+pop [21]
+push [17]
+push 0
+jne if2
+push 666
+pop [21]
+push [18]
+push 0
+jne if3
+push [19]
+call func1
+pop [20]
+:if3
+push [18]
+push 0
+je if4
+push [18]
+push [19]
+call func0
+pop [20]
+:if4
+:if2
+push [17]
+push 0
+je if5
+push [17]
+push [18]
+push [19]
+call func2
+pop [22]
+push [22]
+push 0
+jb if6
+push [17]
+push [18]
+push [22]
+call func3
+pop [20]
+push [17]
+push [18]
+push [22]
+call func4
+pop [21]
+:if6
+push [22]
+push 0
+jae if7
+push 666
+pop [20]
+push 666
+pop [21]
+:if7
+:if5
+push [20]
+out
+push [20]
+push [21]
+je if8
+push [20]
+push 555
+je if9
+push [21]
+out
+:if9
+:if8
+
+hlt
