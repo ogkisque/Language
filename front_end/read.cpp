@@ -21,7 +21,7 @@ Error nodes_read (Function* main, Functions* funcs, Tokens* tokens, ReadStr* str
     else
         main->offset = funcs->funcs[funcs->num_funcs - 1].elems.num_vars + funcs->funcs[funcs->num_funcs - 1].offset;
 
-    //tree_graph_dump_without_error (funcs->funcs[0].root);
+    //tree_graph_dump_without_error (main->root);
 
     RETURN_ERROR(CORRECT, "");
 }

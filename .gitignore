@@ -2,3 +2,5 @@
 back_end/.vscode
 front_end/.vscode
 processor/.vscode
+retranslator/.vscode
+middle_end/.vscode

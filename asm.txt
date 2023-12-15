@@ -152,8 +152,8 @@ out
 push [20]
 push [21]
 je if8
-push [20]
-push 555
+push [21]
+push 666
 je if9
 push [21]
 out
