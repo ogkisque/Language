@@ -11,6 +11,7 @@ Error read_trees (Functions* funcs, ReadStr* str)
     error = read_tree (funcs->funcs[0], str, &is_read);
     PARSE_ERROR_STR(str, error);
     funcs->num_funcs = 1;
+    simple (funcs->funcs[0]->root->right);
 
     for (size_t i = 1; is_read; i++)
     {
@@ -19,10 +20,13 @@ Error read_trees (Functions* funcs, ReadStr* str)
         PARSE_ERROR_STR(str, error);
 
         if (is_read)
+        {
+            simple (funcs->funcs[i]->root->right);
             funcs->num_funcs++;
+        }
     }
 
-    //tree_graph_dump_without_error (funcs->funcs[0]->root);
+    tree_graph_dump_without_error (funcs->funcs[0]->root);
 
     RETURN_ERROR(CORRECT, "");
 }

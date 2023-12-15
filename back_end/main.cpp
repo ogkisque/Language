@@ -12,7 +12,7 @@
             return error.code;                  \
         }
 
-const char*     INPUT_NAME              = "front.txt";
+const char*     INPUT_NAME              = "middle.txt";
 const char*     OUTPUT_NAME             = "asm.txt";
 
 int main ()
@@ -30,5 +30,6 @@ int main ()
     error = print_trees (&funcs, file_output);
     fclose (file_output);
 
+    funcs_dtor (&funcs);
     return 0;
 }

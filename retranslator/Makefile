@@ -10,11 +10,11 @@ CFLAGS = -c -g -Wshadow -Winit-self -Wredundant-decls -Wcast-align\
 
 OBJDIR = obj
 EXEDIR = ../
-OBJ = $(OBJDIR)/main.o $(OBJDIR)/tree.o $(OBJDIR)/dump.o $(OBJDIR)/read.o $(OBJDIR)/simple.o
+OBJ = $(OBJDIR)/main.o $(OBJDIR)/tree.o $(OBJDIR)/dump.o $(OBJDIR)/read.o $(OBJDIR)/print.o
 
-all: $(EXEDIR)/middle.exe
+all: $(EXEDIR)/retrans.exe
 
-$(EXEDIR)/middle.exe: $(OBJ)
+$(EXEDIR)/retrans.exe: $(OBJ)
 	@$(CC) $^ -o $@
 
 $(OBJDIR)/%.o: %.cpp
@@ -23,4 +23,4 @@ $(OBJDIR)/%.o: %.cpp
 .PHONY: clean all
 
 clean:
-	del $(OBJ) $(EXEDIR)/middle.exe
+	del $(OBJ) $(EXEDIR)/retrans.exe

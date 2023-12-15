@@ -1,6 +1,7 @@
 #include "dump.h"
 #include "tree.h"
 #include "read.h"
+#include "print.h"
 
 #define VERIFY(tree)                            \
         error = tree_verify (&tree);            \
@@ -12,7 +13,7 @@
         }
 
 const char*     INPUT_NAME              = "front.txt";
-const char*     OUTPUT_NAME             = "middle.txt";
+const char*     OUTPUT_NAME             = "retrans.txt";
 
 int main ()
 {

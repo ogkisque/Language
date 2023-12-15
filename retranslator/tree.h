@@ -56,6 +56,12 @@
 #define _RBRAC                  create_node (OPER,  RBRAC,          NULL, NULL, NULL)
 #define _END                    create_node (OPER,  END,            NULL, NULL, NULL)
 #define _ASSIGN(left, right)    create_node (OPER,  ASSIGN,         NULL, left, right)
+#define LVAL                    node->left->value
+#define RVAL                    node->right->value
+#define LTYP                    node->left->type
+#define RTYP                    node->right->type
+#define _LEFT                   node->left
+#define _RIGHT                  node->right
 
 const int       MAX_STR_SIZE    = 2000;
 const int       MAX_TEXT_SIZE   = 200;
@@ -177,12 +183,6 @@ struct Functions
     size_t      num_funcs;
 };
 
-struct IfWhileId
-{
-    size_t num_if;
-    size_t num_while;
-};
-
 Error   tree_ctor                   (Tree* tree, const char* name, const char* file, const char* func, int line);
 Error   tree_dtor                   (Tree* tree);
 Error   read_file                   (FILE* file, ReadStr* str);
@@ -197,6 +197,7 @@ void    get_points                  (Node* node, Node** points, size_t pos);
 int     comparator                  (const void* p1, const void* p2);
 bool    is_zero                     (double x);
 Node*   create_node                 (Types type, double value, char* name, Node* left, Node* right);
+void    del_node                    (Node* node);
 void    funcs_dtor                  (Functions* funcs);
 
 #endif //TREE_HEADER

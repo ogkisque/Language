@@ -130,41 +130,6 @@ void val_to_str (const Node* node, char* str)
     }
 }
 
-bool found_var (Elements* elems, char* name)
-{
-    for (size_t i = 0; i < elems->num_elems; i++)
-        if (strcmp (name, elems->elems[i].name) == 0 && elems->elems[i].type == VAR)
-            return true;
-
-    return false;
-}
-
-int found_func (Functions* funcs, char* name)
-{
-    for (size_t i = 0; i < funcs->num_funcs; i++)
-        if (strcmp (name, funcs->funcs[i]->root->name) == 0)
-            return funcs->funcs[i]->id;
-
-    return -1;
-}
-
-Error append_var (Elements* elems, char* name, double value)
-{
-    if (elems->num_elems == MAX_NUM_ELEMS)
-        RETURN_ERROR(VARS_OVERFLOW, "Number of variables is more than max number of variables");
-
-    elems->elems[elems->num_elems].type = VAR;
-    elems->elems[elems->num_elems].value = value;
-    elems->elems[elems->num_elems].id = (int) elems->num_vars;
-    elems->elems[elems->num_elems].name = strdup (name);
-    if (!(elems->elems[elems->num_elems].name))
-        RETURN_ERROR(MEM_ALLOC, "Error of allocation memory for name of var");
-
-    elems->num_vars++;
-    elems->num_elems++;
-    RETURN_ERROR(CORRECT, "");
-}
-
 Error read_file (FILE* file, ReadStr* str)
 {
     if (!file)
@@ -216,27 +181,6 @@ bool is_zero (double x)
     return (abs (x) < EPS);
 }
 
-Error elems_ctor (Elements* elems)
-{
-    if (!elems)
-        RETURN_ERROR(NULL_POINTER, "Null pointer of struct elems");
-
-    elems->elems = (Element*) calloc (MAX_NUM_ELEMS, sizeof (Element));
-
-    for (size_t i = 0; i < NUM_OPERS; i++)
-    {
-        Operator oper = OPERATORS[i];
-        elems->elems[i].type  = oper.type;
-        elems->elems[i].id    = oper.id;
-        elems->elems[i].name  = oper.name;
-        elems->elems[i].value = OPER_DEF_VAL;
-    }
-    elems->num_elems = NUM_OPERS;
-    elems->num_vars  = 0;
-
-    RETURN_ERROR(CORRECT, "");
-}
-
 Node* create_node (Types type, double value, char* name, Node* left, Node* right)
 {
     Node* node = NULL;
@@ -246,18 +190,9 @@ Node* create_node (Types type, double value, char* name, Node* left, Node* right
     return node;
 }
 
-void tokens_dtor (Tokens* tokens)
+void funcs_dtor (Functions* funcs)
 {
-    for (size_t i = 0; i < tokens->size; i++)
-    {
-        if (tokens->tokens[i])
-        {
-            if (tokens->tokens[i]->name)
-            {
-                free (tokens->tokens[i]->name);
-                tokens->tokens[i]->name = NULL;
-            }
-            free (tokens->tokens[i]);
-        }
-    }
+    for (size_t i = 0; i < funcs->num_funcs; i++)
+        nodes_dtor (funcs->funcs[i]->root);
+    funcs->num_funcs = 0;
 }

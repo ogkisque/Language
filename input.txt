@@ -1,6 +1,6 @@
 houmi a_zero (b, c)
 lesss_go
-    ans aka -c / b;
+    ans aka -c / b + 0;
     glock (ans);
 stop_that_shit
 
@@ -9,7 +9,7 @@ lesss_go
     ans aka 0;
     choppa (c == 0)
     lesss_go
-        ans aka 555;
+        ans aka 444 + 111;
     stop_that_shit
 
     choppa (c != 0)
@@ -22,7 +22,7 @@ stop_that_shit
 
 houmi discr (a, b, c)
 lesss_go
-    discr aka b * b - 4 * a * c;
+    discr aka (b * b - 4 * a * c) * 1;
     glock (discr);
 stop_that_shit
 

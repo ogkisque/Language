@@ -19,17 +19,20 @@ int main ()
     Function main = {};
     Functions funcs = {};
     ReadStr str = {};
+    Tokens tokens = {};
     Error error = {};
 
     FILE* file = fopen (INPUT_NAME, "r");
     read_file (file, &str);
     fclose (file);
-    error = nodes_read (&main, &funcs, &str);
+    error = nodes_read (&main, &funcs, &tokens, &str);
 
     FILE* file_output = fopen (OUTPUT_NAME, "w");
     print_funcs (&funcs, &main, file_output);
     fclose (file_output);
 
-    nodes_dtor (main.root);
+    funcs_dtor (&funcs);
+    func_dtor (&main);
+    tokens_dtor (&tokens);
     return 0;
 }

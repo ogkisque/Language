@@ -56,8 +56,14 @@
 #define _RBRAC                  create_node (OPER,  RBRAC,          NULL, NULL, NULL)
 #define _END                    create_node (OPER,  END,            NULL, NULL, NULL)
 #define _ASSIGN(left, right)    create_node (OPER,  ASSIGN,         NULL, left, right)
+#define LVAL                    node->left->value
+#define RVAL                    node->right->value
+#define LTYP                    node->left->type
+#define RTYP                    node->right->type
+#define _LEFT                   node->left
+#define _RIGHT                  node->right
 
-const int       MAX_STR_SIZE    = 500;
+const int       MAX_STR_SIZE    = 2000;
 const int       MAX_TEXT_SIZE   = 200;
 const int       MAX_SIZE        = 100;
 const int       VAR_DEF_VAL     = 2;
@@ -167,13 +173,14 @@ struct Function
 {
     Node*       root;
     Elements    elems;
+    size_t      offset;
+    int         id;
 };
 
 struct Functions
 {
-    Function    funcs[MAX_NUM_FUNCS];
+    Function*   funcs[MAX_NUM_FUNCS];
     size_t      num_funcs;
-    char*       name;
 };
 
 Error   tree_ctor                   (Tree* tree, const char* name, const char* file, const char* func, int line);
@@ -189,15 +196,11 @@ bool    is_cycles                   (Node* node);
 void    get_points                  (Node* node, Node** points, size_t pos);
 int     comparator                  (const void* p1, const void* p2);
 bool    is_zero                     (double x);
-Error   append_var                  (Elements* elems, char* name, double value);
-bool    found_var                   (Elements* elems, char* name);
-Error   elems_ctor                  (Elements* elems);
 Node*   create_node                 (Types type, double value, char* name, Node* left, Node* right);
-void    tokens_dtor                 (Tokens* tokens);
-Error   append_func                 (Elements* elems, char* name);
-bool    found_func                  (Elements* elems, char* name);
-void    print_funcs                 (const Functions* funcs, const Function* main, FILE* file);
-void    print_func                  (const Node* node, const Elements* elems, FILE* file);
-void    val_to_str_print            (char* text, const Node* node, const Elements* elems);
+void    print_funcs                 (const Functions* funcs, FILE* file);
+void    print_func                  (const Node* node, FILE* file);
+void    val_to_str_print            (char* text, const Node* node);
+void    del_node                    (Node* node);
+void    funcs_dtor                  (Functions* funcs);
 
 #endif //TREE_HEADER

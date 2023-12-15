@@ -20,7 +20,7 @@
             return error;                       \
         }
 
-Error nodes_read            (Function* main, Functions* func, ReadStr* str);
+Error nodes_read            (Function* main, Functions* func, Tokens* tokens,  ReadStr* str);
 Error get_funcs             (Functions* funcs, Tokens* tokens);
 Error get_func_declaration  (Function* func, Tokens* tokens, Functions* funcs, bool* is_read);
 Error get_args              (Node** node, Tokens* tokens, Elements* elems, Functions* funcs, bool is_declaration);

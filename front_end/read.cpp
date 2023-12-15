@@ -1,20 +1,19 @@
 #include "read.h"
 #include "operators.h"
 
-Error nodes_read (Function* main, Functions* funcs, ReadStr* str)
+Error nodes_read (Function* main, Functions* funcs, Tokens* tokens, ReadStr* str)
 {
     elems_ctor (&(main->elems));
-    Tokens tokens = {};
-    tokens.pos = 0;
+    tokens->pos = 0;
 
-    Error error = get_tokens (&tokens, str);
+    Error error = get_tokens (tokens, str);
     PARSE_ERROR_STR(str, error);
 
     funcs->num_funcs = 0;
-    error = get_funcs (funcs, &tokens);
+    error = get_funcs (funcs, tokens);
     PARSE_ERROR_STR(str, error);
 
-    error = get_opers (&(main->root), &tokens, &(main->elems), funcs);
+    error = get_opers (&(main->root), tokens, &(main->elems), funcs);
     PARSE_ERROR_STR(str, error);
 
     if (funcs->num_funcs == 0)
@@ -22,7 +21,7 @@ Error nodes_read (Function* main, Functions* funcs, ReadStr* str)
     else
         main->offset = funcs->funcs[funcs->num_funcs - 1].elems.num_vars + funcs->funcs[funcs->num_funcs - 1].offset;
 
-    //tree_graph_dump_without_error (main->root);
+    //tree_graph_dump_without_error (funcs->funcs[0].root);
 
     RETURN_ERROR(CORRECT, "");
 }

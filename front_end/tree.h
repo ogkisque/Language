@@ -199,5 +199,8 @@ int     found_func                  (Functions* funcs, char* name);
 void    print_funcs                 (const Functions* funcs, const Function* main, FILE* file);
 void    print_func                  (const Node* node, const Elements* elems, size_t offset, FILE* file);
 void    val_to_str_print            (char* text, const Node* node, const Elements* elems, size_t offset);
+void    elems_dtor                  (Elements* elems);
+void    funcs_dtor                  (Functions* funcs);
+void    func_dtor                   (Function* func);
 
 #endif //TREE_HEADER

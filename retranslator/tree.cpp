@@ -130,41 +130,6 @@ void val_to_str (const Node* node, char* str)
     }
 }
 
-bool found_var (Elements* elems, char* name)
-{
-    for (size_t i = 0; i < elems->num_elems; i++)
-        if (strcmp (name, elems->elems[i].name) == 0 && elems->elems[i].type == VAR)
-            return true;
-
-    return false;
-}
-
-int found_func (Functions* funcs, char* name)
-{
-    for (size_t i = 0; i < funcs->num_funcs; i++)
-        if (strcmp (name, funcs->funcs[i].root->name) == 0)
-            return funcs->funcs[i].id;
-
-    return -1;
-}
-
-Error append_var (Elements* elems, char* name, double value)
-{
-    if (elems->num_elems == MAX_NUM_ELEMS)
-        RETURN_ERROR(VARS_OVERFLOW, "Number of variables is more than max number of variables");
-
-    elems->elems[elems->num_elems].type = VAR;
-    elems->elems[elems->num_elems].value = value;
-    elems->elems[elems->num_elems].id = (int) elems->num_vars;
-    elems->elems[elems->num_elems].name = strdup (name);
-    if (!(elems->elems[elems->num_elems].name))
-        RETURN_ERROR(MEM_ALLOC, "Error of allocation memory for name of var");
-
-    elems->num_vars++;
-    elems->num_elems++;
-    RETURN_ERROR(CORRECT, "");
-}
-
 Error read_file (FILE* file, ReadStr* str)
 {
     if (!file)
@@ -213,27 +178,6 @@ bool is_zero (double x)
     return (abs (x) < EPS);
 }
 
-Error elems_ctor (Elements* elems)
-{
-    if (!elems)
-        RETURN_ERROR(NULL_POINTER, "Null pointer of struct elems");
-
-    elems->elems = (Element*) calloc (MAX_NUM_ELEMS, sizeof (Element));
-
-    for (size_t i = 0; i < NUM_OPERS; i++)
-    {
-        Operator oper = OPERATORS[i];
-        elems->elems[i].type  = oper.type;
-        elems->elems[i].id    = oper.id;
-        elems->elems[i].name  = oper.name;
-        elems->elems[i].value = OPER_DEF_VAL;
-    }
-    elems->num_elems = NUM_OPERS;
-    elems->num_vars  = 0;
-
-    RETURN_ERROR(CORRECT, "");
-}
-
 Node* create_node (Types type, double value, char* name, Node* left, Node* right)
 {
     Node* node = NULL;
@@ -243,120 +187,20 @@ Node* create_node (Types type, double value, char* name, Node* left, Node* right
     return node;
 }
 
-void tokens_dtor (Tokens* tokens)
+void del_node (Node* node)
 {
-    for (size_t i = 0; i < tokens->size; i++)
+    node->left  = NULL;
+    node->right = NULL;
+    if (node->name)
     {
-        if (tokens->tokens[i])
-        {
-            if (tokens->tokens[i]->name)
-            {
-                free (tokens->tokens[i]->name);
-                tokens->tokens[i]->name = NULL;
-            }
-            free (tokens->tokens[i]);
-        }
+        free (node->name);
+        node->name = NULL;
     }
-}
-
-void print_funcs (const Functions* funcs, const Function* main, FILE* file)
-{
-    for (size_t i = 0; i < funcs->num_funcs; i++)
-        print_func (funcs->funcs[i].root, &(funcs->funcs[i].elems), funcs->funcs[i].offset, file);
-
-    fprintf (file, "main ( ) ( ");
-    print_func (main->root, &(main->elems), main->offset,file);
-    fprintf (file, ") ");
-}
-
-void print_func (const Node* node, const Elements* elems, size_t offset, FILE* file)
-{
-    if (!node)
-        return;
-
-    char text[MAX_TEXT_SIZE] = "";
-    val_to_str_print (text, node, elems, offset);
-    fprintf (file, "%s ", text);
-
-    if (node->type == OPER || node->type == FUNC)
-        fprintf (file, "( ");
-
-    print_func (node->left, elems, offset, file);
-
-    if (node->type == OPER || node->type == FUNC)
-        fprintf (file, ") ");
-
-    if (node->type == OPER || node->type == FUNC)
-        fprintf (file, "( ");
-
-    print_func (node->right, elems, offset, file);
-
-    if (node->type == OPER || node->type == FUNC)
-        fprintf (file, ") ");
-
-}
-
-void val_to_str_print (char* text, const Node* node, const Elements* elems, size_t offset)
-{
-    if (node->type == NUM)
-    {
-        sprintf (text, "%lg", node->value);
-        return;
-    }
-
-    if (node->type == FUNC)
-    {
-        sprintf (text, "func%d", (int) node->value);
-        return;
-    }
-
-    size_t num_in_elems = 0;
-    for (size_t i = 0; i < elems->num_elems; i++)
-    {
-        if (node->type == elems->elems[i].type)
-        {
-            if (node->type == OPER)
-            {
-                if ((int) node->value == elems->elems[i].id)
-                {
-                    num_in_elems = i;
-                    break;
-                }
-            }
-            else
-            {
-                if (strcmp (node->name, elems->elems[i].name) == 0)
-                {
-                    num_in_elems = i;
-                    break;
-                }
-            }
-        }
-    }
-
-    if (node->type == OPER)
-        sprintf (text, "%s", OPERATORS[num_in_elems].name_to_print);
-    else if (node->type == VAR)
-        sprintf (text, "var%lld", elems->elems[num_in_elems].id + offset);
-}
-
-void elems_dtor (Elements* elems)
-{
-    elems->num_elems = 0;
-    elems->num_funcs = 0;
-    elems->num_vars = 0;
-    free (elems->elems);
+    free (node);
 }
 
 void funcs_dtor (Functions* funcs)
 {
     for (size_t i = 0; i < funcs->num_funcs; i++)
-        func_dtor (&(funcs->funcs[i]));
-    funcs->num_funcs = 0;
-}
-
-void func_dtor (Function* func)
-{
-    elems_dtor (&(func->elems));
-    nodes_dtor (func->root);
+        nodes_dtor (funcs->funcs[i]->root);
 }
